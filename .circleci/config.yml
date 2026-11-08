@@ -1,0 +1,1715 @@
+version: 2.1
+
+jobs:
+  initWithBlock:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: T5 optimization
+          command: |
+            mkdir -p /tmp/stage-02
+            set +o pipefail 2>/dev/null; printf '%*s' 1284124 'x' | tr ' ' 'x' > /tmp/stage-02/7w; true
+            echo "q2-smoke | /tmp/stage-02/7w | $(wc -c </tmp/stage-02/7w)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '7w'
+  q2-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/7w ]; then
+              echo "size: $(wc -c < /tmp/stage-02/7w)"
+              echo "hash: $(md5sum /tmp/stage-02/7w | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  EagerDualCtxConverter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Penalty kick promotion
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; grep -r export /etc/profile.d| head -n 2; true ; } > /tmp/stage-02/fe907df
+            echo "atlas-final | /tmp/stage-02/fe907df | $(wc -c </tmp/stage-02/fe907df)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'fe907df'
+  atlas-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  mark15:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: not sure why we aliquot the samples
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; ls -t -v /dev | fmt -w 60; true ; } > /tmp/stage-02/2Q31YZdXYbeu3eq
+            echo "green-light | /tmp/stage-02/2Q31YZdXYbeu3eq | $(wc -c </tmp/stage-02/2Q31YZdXYbeu3eq)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '2Q31YZdXYbeu3eq'
+  green-light:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 ]; then
+              echo "size: $(wc -c < /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0)"
+              echo "hash: $(md5sum /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  ECHO:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Tomorrow approve the training records
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; printenv|head|wc -l; true ; } > /tmp/stage-02/LAYER_BISON
+            echo "PrepareTests | /tmp/stage-02/LAYER_BISON | $(wc -c </tmp/stage-02/LAYER_BISON)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'LAYER_BISON'
+  PrepareTests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/LAYER_BISON ]; then
+              echo "size: $(wc -c < /tmp/stage-02/LAYER_BISON)"
+              echo "hash: $(md5sum /tmp/stage-02/LAYER_BISON | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  YJVIYR-90427b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: We try to encrypt the kernel
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; find /usr/sbin -type l -name '*mod' -size -4k -print0 | xargs -0r ls -ld; true ; } > /tmp/stage-02/rgx90e6pm2yhd
+            echo "Deploy_Staging8 | /tmp/stage-02/rgx90e6pm2yhd | $(wc -c </tmp/stage-02/rgx90e6pm2yhd)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'rgx90e6pm2yhd'
+  Deploy_Staging8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  MAX_SOCKET_SIZE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: mkdir node mods stg
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; echo 'take out the trash'; echo 'night mode on'; true ; } > /tmp/stage-02/crane.cobalt.backup
+            echo "jess-run | /tmp/stage-02/crane.cobalt.backup | $(wc -c </tmp/stage-02/crane.cobalt.backup)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'crane.cobalt.backup'
+  jess-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/crane.cobalt.backup ]; then
+              echo "size: $(wc -c < /tmp/stage-02/crane.cobalt.backup)"
+              echo "hash: $(md5sum /tmp/stage-02/crane.cobalt.backup | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  ryo_x:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: MAINTENANCE
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; sort /etc/passwd | cut -f1,3 -d:; true ; } > /tmp/stage-02/v5.6.1
+            echo "update-cache | /tmp/stage-02/v5.6.1 | $(wc -c </tmp/stage-02/v5.6.1)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'v5.6.1'
+  update-cache:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 ]; then
+              echo "size: $(wc -c < /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0)"
+              echo "hash: $(md5sum /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  MustPayment:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Vectors to charge
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; id -Gn | tr ' ' '\n' | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | shuf -n 5; true ; } > /tmp/stage-02/eG1tQkrFg
+            echo "auh-check-43 | /tmp/stage-02/eG1tQkrFg | $(wc -c </tmp/stage-02/eG1tQkrFg)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'eG1tQkrFg'
+  auh-check-43:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  Xi1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Safe to remind the mentor pairings
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 3 2>/dev/null | sort -r; true ; } > /tmp/stage-02/WolfRed
+            echo "Run_Pipeline8 | /tmp/stage-02/WolfRed | $(wc -c </tmp/stage-02/WolfRed)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'WolfRed'
+  Run_Pipeline8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 ]; then
+              echo "size: $(wc -c < /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0)"
+              echo "hash: $(md5sum /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  yara_sunset:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Defend the trailer cut
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; grep '^/' /etc/shells | xargs -n1 basename | rev | awk '{print length, $0}'; true ; } > /tmp/stage-02/RtkAoam65vAjA2mvIx
+            echo "tb-old | /tmp/stage-02/RtkAoam65vAjA2mvIx | $(wc -c </tmp/stage-02/RtkAoam65vAjA2mvIx)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'RtkAoam65vAjA2mvIx'
+  tb-old:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  sha-ed201fe:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Plate the event loop
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; baz='/purple/theme/game.py'; echo "${baz#*.}"; true ; } > /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0
+            echo "wip-router-v2-timeout | /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 | $(wc -c </tmp/stage-02/g4mm4_f1am3_mapp3r_mem0)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'g4mm4_f1am3_mapp3r_mem0'
+  wip-router-v2-timeout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 ]; then
+              echo "size: $(wc -c < /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0)"
+              echo "hash: $(md5sum /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  VISIBLE_RECORD_88:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Standby cold start
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; awk -F':' 'length($1) > 5 { print NF }' /etc/passwd | sort; true ; } > /tmp/stage-02/6618_lib-9295
+            echo "verify-nightly-integration-tests | /tmp/stage-02/6618_lib-9295 | $(wc -c </tmp/stage-02/6618_lib-9295)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '6618_lib-9295'
+  verify-nightly-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  sqrt-19:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Sign Off Or Filing
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; echo "86 - 26 = $((86 - 26))"; true ; } > /tmp/stage-02/TENANT_BLUE_BLOB_AZURE
+            echo "refactor-6336 | /tmp/stage-02/TENANT_BLUE_BLOB_AZURE | $(wc -c </tmp/stage-02/TENANT_BLUE_BLOB_AZURE)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'TENANT_BLUE_BLOB_AZURE'
+  refactor-6336:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  intrauat25:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: The mounted volume looks ok
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; grep -risl export /etc 2>/dev/null | sort | head -n 15; true ; } > /tmp/stage-02/0b292f0cd257280680d0c3b05d2b
+            echo "validte | /tmp/stage-02/0b292f0cd257280680d0c3b05d2b | $(wc -c </tmp/stage-02/0b292f0cd257280680d0c3b05d2b)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '0b292f0cd257280680d0c3b05d2b'
+  validte:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/0b292f0cd257280680d0c3b05d2b ]; then
+              echo "size: $(wc -c < /tmp/stage-02/0b292f0cd257280680d0c3b05d2b)"
+              echo "hash: $(md5sum /tmp/stage-02/0b292f0cd257280680d0c3b05d2b | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  o-brand:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Hand the service accounts back to prod
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; date | tac | tr -cs '[:alnum:]' '\n' | tac; true ; } > /tmp/stage-02/PO8267
+            echo "verify-production-test-matrix | /tmp/stage-02/PO8267 | $(wc -c </tmp/stage-02/PO8267)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'PO8267'
+  verify-production-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  putsensor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: In place spawn the boss arena
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; find /opt -exec ls -ld {} + 2> /dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/stage-02/TICKET_036273
+            echo "realease | /tmp/stage-02/TICKET_036273 | $(wc -c </tmp/stage-02/TICKET_036273)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'TICKET_036273'
+  realease:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  skoundquamtee-kit:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Prep the petri dishes per protocol
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; find /tmp -maxdepth 2 -type d -iname "*.log" -exec ls -ld '{}' \; 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/stage-02/grove
+            echo "deploy | /tmp/stage-02/grove | $(wc -c </tmp/stage-02/grove)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'grove'
+  deploy:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  Read-ScannerPath:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: VERIFY THREAT FEED END
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; mkdir -p "${TMPDIR:-/tmp}/epic" && touch "${TMPDIR:-/tmp}/epic"/file{1..3}.txt && ls "${TMPDIR:-/tmp}/epic"; true ; } > /tmp/stage-02/crisPAGEnT
+            echo "v5-canary5 | /tmp/stage-02/crisPAGEnT | $(wc -c </tmp/stage-02/crisPAGEnT)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'crisPAGEnT'
+  v5-canary5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/crisPAGEnT ]; then
+              echo "size: $(wc -c < /tmp/stage-02/crisPAGEnT)"
+              echo "hash: $(md5sum /tmp/stage-02/crisPAGEnT | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  verifyimage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: encrypt ssh keys early
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; echo 'done' > /tmp/build-thumb.log && du -h /tmp/build-thumb.log; true ; } > /tmp/stage-02/sb2axv6t
+            echo "API-596 | /tmp/stage-02/sb2axv6t | $(wc -c </tmp/stage-02/sb2axv6t)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'sb2axv6t'
+  API-596:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 ]; then
+              echo "size: $(wc -c < /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0)"
+              echo "hash: $(md5sum /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  addr_prod:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: We analyze the sessions table by hand
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; printf '%08.3f\n' 190.3209; true ; } > /tmp/stage-02/232.141.92
+            echo "perseus-beta | /tmp/stage-02/232.141.92 | $(wc -c </tmp/stage-02/232.141.92)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '232.141.92'
+  perseus-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 ]; then
+              echo "size: $(wc -c < /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0)"
+              echo "hash: $(md5sum /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  autumn_510:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: FINGERPRINT PERMISSIONS END
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; find /tmp -maxdepth 3 -mindepth 1 -type l -name '*.txt' -mmin +60 -exec echo {} \; 2>/dev/null | sort; true ; } > /tmp/stage-02/blobcachesouthfermion
+            echo "promote | /tmp/stage-02/blobcachesouthfermion | $(wc -c </tmp/stage-02/blobcachesouthfermion)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'blobcachesouthfermion'
+  promote:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/blobcachesouthfermion ]; then
+              echo "size: $(wc -c < /tmp/stage-02/blobcachesouthfermion)"
+              echo "hash: $(md5sum /tmp/stage-02/blobcachesouthfermion | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  Pos-Shared:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: RECEIVE PACKING SLIPS TWO PER CART
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; touch '/var/tmp/middle.csv' && chmod a-w '/var/tmp/middle.csv' && ls -l '/var/tmp/middle.csv'; true ; } > /tmp/stage-02/UZ8HWL8i8r2Hr8pJ44HPzi
+            echo "VerifyTests | /tmp/stage-02/UZ8HWL8i8r2Hr8pJ44HPzi | $(wc -c </tmp/stage-02/UZ8HWL8i8r2Hr8pJ44HPzi)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'UZ8HWL8i8r2Hr8pJ44HPzi'
+  VerifyTests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/UZ8HWL8i8r2Hr8pJ44HPzi ]; then
+              echo "size: $(wc -c < /tmp/stage-02/UZ8HWL8i8r2Hr8pJ44HPzi)"
+              echo "hash: $(md5sum /tmp/stage-02/UZ8HWL8i8r2Hr8pJ44HPzi | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  vw_resolve_split:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Onboard backend onto rigging
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; echo -n "v0.9-beta" | sha384sum; true ; } > /tmp/stage-02/PANO_25704
+            echo "v1-alpha3 | /tmp/stage-02/PANO_25704 | $(wc -c </tmp/stage-02/PANO_25704)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'PANO_25704'
+  v1-alpha3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  staging-lb-18:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Without fail export the skill tree
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; echo "book flights";echo "testing 1 2 3"; true ; } > /tmp/stage-02/hw_doc
+            echo "wen-build | /tmp/stage-02/hw_doc | $(wc -c </tmp/stage-02/hw_doc)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'hw_doc'
+  wen-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/hw_doc ]; then
+              echo "size: $(wc -c < /tmp/stage-02/hw_doc)"
+              echo "hash: $(md5sum /tmp/stage-02/hw_doc | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  polyGrid:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Report Of The Type Checks
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; echo 'version 2.0' > /var/tmp/settings_edge_api.list && wc -c < /var/tmp/settings_edge_api.list; true ; } > /tmp/stage-02/PAzuNv
+            echo "py310-bench | /tmp/stage-02/PAzuNv | $(wc -c </tmp/stage-02/PAzuNv)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'PAzuNv'
+  py310-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  omega_sq:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: What about the backlog
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; if grep -q '^127' /etc/hosts ; then echo 'it is there'; else echo 'nope'; fi; true ; } > /tmp/stage-02/xx_4022ff2d8b9698
+            echo "realease-96 | /tmp/stage-02/xx_4022ff2d8b9698 | $(wc -c </tmp/stage-02/xx_4022ff2d8b9698)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'xx_4022ff2d8b9698'
+  realease-96:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/xx_4022ff2d8b9698 ]; then
+              echo "size: $(wc -c < /tmp/stage-02/xx_4022ff2d8b9698)"
+              echo "hash: $(md5sum /tmp/stage-02/xx_4022ff2d8b9698 | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  interfaceVal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Mute the API keys
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; touch -d '2020-01-01 12:00' "/tmp/epic-price.out" && date -r "/tmp/epic-price.out"; true ; } > /tmp/stage-02/Iqh
+            echo "bake-it | /tmp/stage-02/Iqh | $(wc -c </tmp/stage-02/Iqh)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'Iqh'
+  bake-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/Iqh ]; then
+              echo "size: $(wc -c < /tmp/stage-02/Iqh)"
+              echo "hash: $(md5sum /tmp/stage-02/Iqh | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  freddy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Reboot Fan Curve On Canary
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; compgen -k | tr "a-z" "A-Z" | nl -w2 -s". "; true ; } > /tmp/stage-02/27.09.2024
+            echo "run-staging-release-candidate | /tmp/stage-02/27.09.2024 | $(wc -c </tmp/stage-02/27.09.2024)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '27.09.2024'
+  run-staging-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/27.09.2024 ]; then
+              echo "size: $(wc -c < /tmp/stage-02/27.09.2024)"
+              echo "hash: $(md5sum /tmp/stage-02/27.09.2024 | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  reAddressCanvas:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: And now pin the key ring
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; find /proc/self -type d \( -name 'cmd*' -o -name 'fd' \) -exec ls -1d {} + 2>/dev/null | xargs ls -ld; true ; } > /tmp/stage-02/south.atom.asset
+            echo "whiskey | /tmp/stage-02/south.atom.asset | $(wc -c </tmp/stage-02/south.atom.asset)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'south.atom.asset'
+  whiskey:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 ]; then
+              echo "size: $(wc -c < /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0)"
+              echo "hash: $(md5sum /tmp/stage-02/g4mm4_f1am3_mapp3r_mem0 | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+  gomwe1z:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Warmdown
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; cat /etc/passwd | grep -w 'games' | awk -F: '{print $1}'; true ; } > /tmp/stage-02/4z9ips
+            echo "chore-415 | /tmp/stage-02/4z9ips | $(wc -c </tmp/stage-02/4z9ips)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '4z9ips'
+  chore-415:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Revalidate
+          command: |
+            # simple report
+            if [ -s /tmp/stage-02/fe907df ]; then
+              echo "size: $(wc -c < /tmp/stage-02/fe907df)"
+              echo "hash: $(md5sum /tmp/stage-02/fe907df | cut -c1-8)"
+            else
+              echo "empty"
+            fi
+      - run:
+          name: Retrieve codebase
+          command: git clone --depth 1 --quiet --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull static data
+          command: gunzip -c data-stage.tgz | tar xf -
+      - run:
+          name: Finalize build
+          command: sleep 15
+      - run:
+          command: ./checker-cli && true
+
+  bugfix-145-factory:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Issue the new hires by payroll cutoff
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; for word in `seq 9`;do printf '%02d\n' "$word"; done | wc -l; true ; } > /tmp/stage-02/hw_doc
+            echo "wen-build | /tmp/stage-02/hw_doc | $(wc -c </tmp/stage-02/hw_doc)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'hw_doc'
+  undoRetreive:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Ship then spin up
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; if [ -f ~/.bashrc ] ; then echo yes; fi; true ; } > /tmp/stage-02/Iqh
+            echo "bake-it | /tmp/stage-02/Iqh | $(wc -c </tmp/stage-02/Iqh)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'Iqh'
+  logServoLock:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: charging power supply in background
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; getent passwd|awk -F: '{ print $3 }'|sort -n|tail -n 1; true ; } > /tmp/stage-02/27.09.2024
+            echo "run-staging-release-candidate | /tmp/stage-02/27.09.2024 | $(wc -c </tmp/stage-02/27.09.2024)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '27.09.2024'
+  ServerLoose:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Preflight scoring
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; sha512sum /etc/hosts > "/var/tmp/post.sha512"&&sha512sum -c "/var/tmp/post.sha512"; true ; } > /tmp/stage-02/UZ8HWL8i8r2Hr8pJ44HPzi
+            echo "VerifyTests | /tmp/stage-02/UZ8HWL8i8r2Hr8pJ44HPzi | $(wc -c </tmp/stage-02/UZ8HWL8i8r2Hr8pJ44HPzi)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'UZ8HWL8i8r2Hr8pJ44HPzi'
+  j_paint:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: And now sandbox the password hashes
+          command: |
+            mkdir -p /tmp/stage-02
+            set +o pipefail 2>/dev/null; printf '%*s' 1284124 'x' | tr ' ' 'x' > /tmp/stage-02/7w; true
+            echo "q2-smoke | /tmp/stage-02/7w | $(wc -c </tmp/stage-02/7w)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '7w'
+  papa-window:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: yup update shift roster
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; grep -qs ":0:" /etc/passwd && echo good || echo bad; true ; } > /tmp/stage-02/blobcachesouthfermion
+            echo "promote | /tmp/stage-02/blobcachesouthfermion | $(wc -c </tmp/stage-02/blobcachesouthfermion)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'blobcachesouthfermion'
+  sin_kw:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Go around on the growth medium
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; seq -f 'img_%03g.jpg' 5; true ; } > /tmp/stage-02/0b292f0cd257280680d0c3b05d2b
+            echo "validte | /tmp/stage-02/0b292f0cd257280680d0c3b05d2b | $(wc -c </tmp/stage-02/0b292f0cd257280680d0c3b05d2b)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - '0b292f0cd257280680d0c3b05d2b'
+  guard_kiln_begin_font_yogurt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Batch the learning rate on 1 gpus
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; tar -czf "/tmp/font_20241122.tar.gz" -C /etc nsswitch.conf hosts && mkdir -p /tmp/merge_ticket && tar -xzf "/tmp/font_20241122.tar.gz" -C /tmp/merge_ticket && ls -R /tmp/merge_ticket; true ; } > /tmp/stage-02/crane.cobalt.backup
+            echo "jess-run | /tmp/stage-02/crane.cobalt.backup | $(wc -c </tmp/stage-02/crane.cobalt.backup)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'crane.cobalt.backup'
+  mikeSage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Test IMAP
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; TMP_FILE=pricestatus && echo "[${TMP_FILE,,}]"; true ; } > /tmp/stage-02/LAYER_BISON
+            echo "PrepareTests | /tmp/stage-02/LAYER_BISON | $(wc -c </tmp/stage-02/LAYER_BISON)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'LAYER_BISON'
+  drawcontractthread:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Plan Rolling Quill
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; printf 'host=db1\nport=8080\nuser=chen\ndebug=false\n' >/tmp/monthly-20260206.dat && awk -F= '{print $1}' /tmp/monthly-20260206.dat; true ; } > /tmp/stage-02/xx_4022ff2d8b9698
+            echo "realease-96 | /tmp/stage-02/xx_4022ff2d8b9698 | $(wc -c </tmp/stage-02/xx_4022ff2d8b9698)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'xx_4022ff2d8b9698'
+  loadAuthorFresh:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/stage-02
+      - run:
+          name: Loot the parking passes
+          command: |
+            mkdir -p /tmp/stage-02
+            { set +o pipefail 2>/dev/null; printf '%s' 'ready?' | od -An -c; true ; } > /tmp/stage-02/crisPAGEnT
+            echo "v5-canary5 | /tmp/stage-02/crisPAGEnT | $(wc -c </tmp/stage-02/crisPAGEnT)"
+      - persist_to_workspace:
+          root: /tmp/stage-02
+          paths:
+            - 'crisPAGEnT'
+workflows:
+  ci:
+    jobs:
+      - staging-lb-18
+      - bugfix-145-factory:
+          requires:
+            - staging-lb-18
+      - wen-build:
+          requires:
+            - bugfix-145-factory
+      - interfaceVal:
+          requires:
+            - bugfix-145-factory
+      - undoRetreive:
+          requires:
+            - interfaceVal
+      - bake-it:
+          requires:
+            - undoRetreive
+      - freddy:
+          requires:
+            - undoRetreive
+      - logServoLock:
+          requires:
+            - freddy
+      - run-staging-release-candidate:
+          requires:
+            - logServoLock
+      - Pos-Shared:
+          requires:
+            - logServoLock
+      - ServerLoose:
+          requires:
+            - Pos-Shared
+      - VerifyTests:
+          requires:
+            - ServerLoose
+      - EagerDualCtxConverter
+      - skoundquamtee-kit
+      - atlas-final:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - deploy:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - refactor-6336:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - verify-nightly-integration-tests:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - auh-check-43:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - v1-alpha3:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - realease:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - Deploy_Staging8:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - verify-production-test-matrix:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - py310-bench:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - tb-old:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - chore-415:
+          requires:
+            - EagerDualCtxConverter
+            - skoundquamtee-kit
+      - sha-ed201fe
+      - mark15
+      - addr_prod
+      - wip-router-v2-timeout:
+          requires:
+            - sha-ed201fe
+            - mark15
+            - addr_prod
+      - green-light:
+          requires:
+            - sha-ed201fe
+            - mark15
+            - addr_prod
+      - perseus-beta:
+          requires:
+            - sha-ed201fe
+            - mark15
+            - addr_prod
+      - API-596:
+          requires:
+            - sha-ed201fe
+            - mark15
+            - addr_prod
+      - whiskey:
+          requires:
+            - sha-ed201fe
+            - mark15
+            - addr_prod
+      - update-cache:
+          requires:
+            - sha-ed201fe
+            - mark15
+            - addr_prod
+      - Run_Pipeline8:
+          requires:
+            - sha-ed201fe
+            - mark15
+            - addr_prod
+      - initWithBlock
+      - j_paint:
+          requires:
+            - initWithBlock
+      - q2-smoke:
+          requires:
+            - j_paint
+      - autumn_510:
+          requires:
+            - j_paint
+      - papa-window:
+          requires:
+            - autumn_510
+      - promote:
+          requires:
+            - papa-window
+      - intrauat25:
+          requires:
+            - papa-window
+      - sin_kw:
+          requires:
+            - intrauat25
+      - validte:
+          requires:
+            - sin_kw
+      - MAX_SOCKET_SIZE:
+          requires:
+            - sin_kw
+      - guard_kiln_begin_font_yogurt:
+          requires:
+            - MAX_SOCKET_SIZE
+      - jess-run:
+          requires:
+            - guard_kiln_begin_font_yogurt
+      - ECHO:
+          requires:
+            - guard_kiln_begin_font_yogurt
+      - mikeSage:
+          requires:
+            - ECHO
+      - PrepareTests:
+          requires:
+            - mikeSage
+      - omega_sq:
+          requires:
+            - mikeSage
+      - drawcontractthread:
+          requires:
+            - omega_sq
+      - realease-96:
+          requires:
+            - drawcontractthread
+      - Read-ScannerPath:
+          requires:
+            - drawcontractthread
+      - loadAuthorFresh:
+          requires:
+            - Read-ScannerPath
+      - v5-canary5:
+          requires:
+            - loadAuthorFresh
